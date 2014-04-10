@@ -1,0 +1,28 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminLogInMasterPage.master.cs" Inherits="AdminLogInMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Untitled Page</title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <div>
+        <asp:LinkButton ID="LinkButton1" runat="server" style="float:right;" 
+            onclick="LinkButton1_Click">Logout</asp:LinkButton>
+            <a href="/Agents.aspx" style="float:right; margin-right:10px;">Agents</a>
+            <a href="/Routes.aspx" style="float:right; margin-right:10px;">Routes</a>
+            <a href="/Buses.aspx" style="float:right; margin-right:10px;">Bus</a>
+            <a href="/finance_reports.aspx" style="float:right; margin-right:10px;">Finance Reports</a>
+            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
