@@ -32,8 +32,7 @@ public partial class Agents : System.Web.UI.Page
                 Response.Redirect("/login.aspx");
             }
             //pagecode
-            agents = SpecificSelectionFromTable.return_table("select * from users where user_type='agent' order by is_deleted");
-
+            all_agents();
             //page code
         }
     }
@@ -42,11 +41,25 @@ public partial class Agents : System.Web.UI.Page
         string first_name = TextBox1.Text.ToString().Trim();
         string last_name = TextBox2.Text.ToString().Trim();
         string email = TextBox3.Text.ToString().Trim();
-        string password = TextBox4.Text.ToString().Trim();
+        string password = MD5Hash.encrypt(TextBox4.Text.ToString().Trim());
         string mobile = TextBox5.Text.ToString().Trim();
         string dob = TextBox6.Text.ToString().Trim();
-        Execute_Query.exec_qry("insert into users (first_name, last_name, email, email_verified, password, mobile, mobile_verified, dob, user_type) values ('" + first_name + "', '" + last_name + "', '" + email + "', 1, '" + password + "', '" + mobile + "', 1, '" + dob + "', 'agent')");
-        agents = SpecificSelectionFromTable.return_table("select * from users where user_type='agent'");
-        UpdatePanel2.Update();
-    }    
+        if (Execute_Query.exec_qry("insert into users (id, first_name, last_name, email, email_verified, password, mobile, mobile_verified, dob, user_type) values ('" + IdGenerator.create() + "','" + first_name + "', '" + last_name + "', '" + email + "', 1, '" + password + "', '" + mobile + "', 1, '" + dob + "', 'agent')"))
+        {
+            all_agents();
+            UpdatePanel2.Update();
+            TextBox1.Text = "";
+            TextBox2.Text = "";
+            TextBox3.Text = "";
+            TextBox4.Text = "";
+            TextBox5.Text = "";
+            TextBox6.Text = "";
+            UpdatePanel1.Update();
+        }
+    }
+
+    private void all_agents()
+    {
+        agents = SpecificSelectionFromTable.return_table("select * from users where user_type='agent' order by is_deleted, first_name");
+    }
 }

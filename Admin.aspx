@@ -8,6 +8,6 @@
       {
           dr = users_data.Rows[i];
           %>
-      <%=dr[0] %><br />
+      <%=dr[1] %><br />
      <% } %>
 </asp:Content>

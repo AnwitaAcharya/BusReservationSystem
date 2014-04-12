@@ -21,30 +21,29 @@ public partial class Login : System.Web.UI.Page
     {
         string username = TextBox1.Text.ToString().Trim();
         string password = MD5Hash.encrypt(TextBox2.Text.ToString().Trim());
-        if (LoginCheck.validate(username,password))
+        if (LoginCheck.validate(username, password))
         {
             System.Data.DataTable users_data;
             users_data = CurrentUser.record(username);
             if (users_data.Rows.Count == 1)
             {
-                if (users_data.Rows[0][0].ToString().Trim().ToLower() == "admin")
+                if (users_data.Rows[0][14].ToString().Trim().ToLower() == "admin")
                 {
                     Session["admin_username"] = username;
                     Response.Redirect("/admin.aspx");
                 }
-                else if (users_data.Rows[0][0].ToString().Trim().ToLower() == "agent")
+                else if (users_data.Rows[0][14].ToString().Trim().ToLower() == "agent")
                 {
                     Session["agent_username"] = username;
                     Response.Redirect("/agent.aspx");
                 }
-                else if (users_data.Rows[0][0].ToString().Trim().ToLower() == "normal")
+                else if (users_data.Rows[0][14].ToString().Trim().ToLower() == "normal")
                 {
                     Session["username"] = username;
                     Response.Redirect("/");
                 }
-                
-            } 
-}
-       
+
+            }
+        }
     }
 }

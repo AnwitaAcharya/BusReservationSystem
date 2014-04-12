@@ -2,6 +2,16 @@
     CodeFile="Agents.aspx.cs" Inherits="Agents" Title="Untitled Page" EnableViewStateMac="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+ <script>
+$(function() {
+$( "#<%= TextBox6.ClientID %>" ).datepicker({
+showOn: "button",
+buttonImage: "/jquery-ui/images/calendar.gif",
+buttonImageOnly: true,
+});
+$( "#datepicker" ).datepicker( "option", "dateFormat", "mm/dd/yyyy" );
+});
+</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
@@ -45,7 +55,7 @@
                    for (int i = 0; i <= agents.Rows.Count - 1; i++)
                    {
                        dr = agents.Rows[i];  %>
-                <% if ((dr[14].ToString().Trim() == "0") & (active_started == false))
+                <% if ((dr[15].ToString().Trim() == "0") & (active_started == false))
                    {%>
                 <tr>
                     <td colspan="3">
@@ -54,7 +64,7 @@
                 </tr>
                 <% active_started = true;
                    } %>
-                <% if ((dr[14].ToString().Trim() == "1") & (inactive_started == false))
+                <% if ((dr[15].ToString().Trim() == "1") & (inactive_started == false))
                    {%>
                 <tr>
                     <td colspan="3">
@@ -65,13 +75,20 @@
                    } %>
                 <tr>
                     <td>
-                        <%=dr[0] + " " + dr[1]%>
+                        <%=dr[1] + " " + dr[2]%>
                     </td>
                     <td>
-                        <%= dr[2] %>
+                        <%= dr[3] %>
                     </td>
                     <td>
-                        <a>Edit</a> <a onclick="return confirm('Are you sure?')">Delete</a>
+                    <% if (dr[15].ToString().Trim() == "1") %>
+                    <%{ %>
+                       <a href="/agent_operation.aspx?req_type=active&req_id=<%= dr[0].ToString().Trim() %>">Active</a>
+                       <%} %>
+                       <%else %>
+                    <%{ %>
+                       <a href="/agent_operation.aspx?req_type=edit&req_id=<%= dr[0].ToString().Trim() %>">Edit</a> <a href="/agent_operation.aspx?req_type=inactive&req_id=<%= dr[0].ToString().Trim() %>">Inactive</a>
+                       <%} %>
                     </td>
                 </tr>
                 <% } %>
