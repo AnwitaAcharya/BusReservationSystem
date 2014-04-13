@@ -23,30 +23,43 @@ public class Execute_Query
     }*/
     public static Boolean exec_qry(string qry)
     {
-        /*try
-        {*/
-            /*SqlConnection myConn = new SqlConnection(DatabaseConnection.connection_string());
-            myConn.Open();
-            string strqry = qry;
-            SqlCommand myCom = new SqlCommand(strqry, myConn);
-            int numrow = myCom.ExecuteNonQuery();
-            myConn.Close();*/
-            /*SqlConnection con = new SqlConnection("Server=SURAJIT1-85CFDA;Database=ticket_booking;Trusted_Connectopn=True");*/
+        Boolean flag;
+        try
+        {
+            
             SqlConnection con = new SqlConnection(DatabaseConnection.connection_string());
             con.Open();
-            SqlCommand cmd = new SqlCommand(qry, con);
-            cmd.ExecuteNonQuery();
-            /*DataSet ds = new DataSet(cmd, con);
-            SqlDataAdapter da = new SqlDataAdapter();
-            da.Fill(ds);*/
+            SqlCommand cmd = new SqlCommand();
+            //cmd.ExecuteNonQuery();
+            
+          
+
+            cmd.Connection = con;
+
+            cmd.CommandText = "sql_qry";
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter p=new SqlParameter();
+            p.ParameterName = "@sql";
+            p.Direction = ParameterDirection.Input;
+            p.SqlDbType = SqlDbType.Text;
+            p.Value = qry;
+            cmd.Parameters.Add(p);
+
+            cmd.ExecuteScalar();
+
+
+            flag=true;
             con.Close();
-            return true;
-        /*}
+        }
         catch (Exception e)
         {
-            return false;
-        }*/
-
+            
+            
+            flag= false;
+        }
+        return flag;
     }
+
+   
 
 }
