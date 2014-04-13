@@ -10,7 +10,7 @@ create table bus_categories(id nvarchar(1000) NOT NULL, category_name nvarchar(1
 
 create table buses(id nvarchar(1000) NOT NULL, bus_no nvarchar(1000) NOT NULL, category_id nvarchar(1000) NOT NULL, is_deleted tinyint default 0,  PRIMARY KEY (id), FOREIGN KEY (category_id) REFERENCES bus_categories(id))
 
-create table bus_details(id nvarchar(1000) NOT NULL, bus_id nvarchar(1000) NOT NULL, route_id nvarchar(1000) NOT NULL, arrival_time nvarchar(100), fare decimal(16,2), is_deleted tinyint default 0,  PRIMARY KEY (id), FOREIGN KEY (route_id) REFERENCES routes(id), FOREIGN KEY (bus_id) REFERENCES buses(id))
+create table bus_details(id nvarchar(1000) NOT NULL,sl_no decimal not null, bus_id nvarchar(1000) NOT NULL, route_id nvarchar(1000) NOT NULL, arrival_time nvarchar(100), fare decimal(16,2), is_deleted tinyint default 0, week_day nvarchar(1000),  PRIMARY KEY (id), FOREIGN KEY (route_id) REFERENCES routes(id), FOREIGN KEY (bus_id) REFERENCES buses(id))
 
 
 
