@@ -13,6 +13,9 @@ using System.Xml.Linq;
 
 public partial class Login : System.Web.UI.Page
 {
+    public Boolean err = false;
+    public ArrayList err_text = new ArrayList();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         

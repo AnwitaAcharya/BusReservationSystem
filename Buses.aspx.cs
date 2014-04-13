@@ -16,6 +16,9 @@ public partial class Buses : System.Web.UI.Page
     public System.Data.DataTable users_data;
     public System.Data.DataTable buses;
     public System.Data.DataTable bus_categories;
+    public Boolean err = false;
+    public ArrayList err_text = new ArrayList();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["admin_username"] == null)
@@ -53,12 +56,17 @@ public partial class Buses : System.Web.UI.Page
     protected void Button2_Click(object sender, EventArgs e)
     {
         string category_name = TextBox2.Text.ToString().Trim();
-        if (Execute_Query.exec_qry("insert into bus_categories (id,category_name) values ('" + IdGenerator.create() + "','" + category_name + "')"))
+        if (category_name.Length == 0) { err = true; err_text.Add("Category Name can't be blank."); }
+        if (SpecificSelectionFromTable.return_table("select count(*) from bus_categories where category_name='" + category_name + "'").Rows[0][0].ToString().Trim() != "0") { err = true; err_text.Add("Category Name already exist."); }
+        if (err == false)
         {
-            all_categories();
-            UpdatePanel1.Update();
-            TextBox2.Text = "";
-            UpdatePanel3.Update();
+            if (Execute_Query.exec_qry("insert into bus_categories (id,category_name) values ('" + IdGenerator.create() + "','" + category_name + "')"))
+            {
+                all_categories();
+                UpdatePanel1.Update();
+                TextBox2.Text = "";
+                UpdatePanel3.Update();
+            }
         }
     }
 

@@ -17,6 +17,9 @@ public partial class agent_operation : System.Web.UI.Page
     public System.Data.DataTable agent;
     public string req_type;
     public string req_id;
+    public Boolean err = false;
+    public ArrayList err_text = new ArrayList();
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["admin_username"] == null)
@@ -82,19 +85,26 @@ public partial class agent_operation : System.Web.UI.Page
         string email = TextBox3.Text.ToString().Trim();
         string mobile = TextBox5.Text.ToString().Trim();
         string dob = TextBox6.Text.ToString().Trim();
-        if (TextBox4.Text.Trim().Length > 0)
+        if (first_name.Length == 0) { err = true; err_text.Add("First Nmae can't be blank."); }
+        if (email.Length == 0) { err = true; err_text.Add("Email can't be blank."); }
+        if (dob.Length == 0) { err = true; err_text.Add("Date of birth can't be blank."); }
+        if (SpecificSelectionFromTable.return_table("select count(*) from users where email='" + email + "' and id not in ('" + req_id + "')").Rows[0][0].ToString().Trim() != "0") { err = true; err_text.Add("Email already exist."); }
+        if (err == false)
         {
-            string password = MD5Hash.encrypt(TextBox4.Text.ToString().Trim());
-            if (Execute_Query.exec_qry("update users set first_name ='" + first_name + "', last_name='" + last_name + "', email='" + email + "', password='" + password + "', mobile='" + mobile + "', dob='" + dob + "' where id='" + req_id + "'"))
+            if (TextBox4.Text.Trim().Length > 0)
             {
-                Response.Redirect("/agents.aspx");
+                string password = MD5Hash.encrypt(TextBox4.Text.ToString().Trim());
+                if (Execute_Query.exec_qry("update users set first_name ='" + first_name + "', last_name='" + last_name + "', email='" + email + "', password='" + password + "', mobile='" + mobile + "', dob='" + dob + "' where id='" + req_id + "'"))
+                {
+                    Response.Redirect("/agents.aspx");
+                }
             }
-        }
-        else
-        {
-            if (Execute_Query.exec_qry("update users set first_name ='" + first_name + "', last_name='" + last_name + "', email='" + email + "', mobile='" + mobile + "', dob='" + dob + "' where id='" + req_id + "'"))
+            else
             {
-                Response.Redirect("/agents.aspx");
+                if (Execute_Query.exec_qry("update users set first_name ='" + first_name + "', last_name='" + last_name + "', email='" + email + "', mobile='" + mobile + "', dob='" + dob + "' where id='" + req_id + "'"))
+                {
+                    Response.Redirect("/agents.aspx");
+                }
             }
         }
 

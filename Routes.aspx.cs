@@ -15,6 +15,8 @@ public partial class Routes : System.Web.UI.Page
 {
     public System.Data.DataTable users_data;
     public System.Data.DataTable routes;
+    public Boolean err = false;
+    public ArrayList err_text = new ArrayList();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["admin_username"] == null)
@@ -39,18 +41,22 @@ public partial class Routes : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         string route_name = TextBox1.Text.ToString().Trim();
-        if (Execute_Query.exec_qry("insert into routes (id, route_name) values ('" + IdGenerator.create() + "','" + route_name + "')"))
-            //if (Execute_Query.exec_qry("insert into routes ( route_name) values ('" + route_name + "')"))
+        if (route_name.Length == 0) { err = true; err_text.Add("Route Nmae can't be blank."); }
+        if (SpecificSelectionFromTable.return_table("select count(*) from routes where route_name='" + route_name + "'").Rows[0][0].ToString().Trim() != "0") { err = true; err_text.Add("Place already exist."); }
+        if (err == false)
+        {
+            if (Execute_Query.exec_qry("insert into routes (id, route_name) values ('" + IdGenerator.create() + "','" + route_name + "')"))
             {
-        all_routes();
-        UpdatePanel2.Update();
-        TextBox1.Text = "";
-            UpdatePanel1.Update();
-    }
+                all_routes();
+                UpdatePanel2.Update();
+                TextBox1.Text = "";
+                UpdatePanel1.Update();
+            }
+        }
     }
 
     private void all_routes()
     {
-        routes = SpecificSelectionFromTable.return_table("select * from routes order by is_deleted, route_name");    
+        routes = SpecificSelectionFromTable.return_table("select * from routes order by is_deleted, route_name");
     }
 }

@@ -1,7 +1,9 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/AdminLogInMasterPage.master" AutoEventWireup="true" CodeFile="agent_operation.aspx.cs" Inherits="agent_operation" Title="Untitled Page" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/AdminLogInMasterPage.master" AutoEventWireup="true"
+    CodeFile="agent_operation.aspx.cs" Inherits="agent_operation" Title="Untitled Page" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
- <script>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+
+    <script>
 $(function() {
 $( "#<%= TextBox6.ClientID %>" ).datepicker({
 showOn: "button",
@@ -10,10 +12,27 @@ buttonImageOnly: true,
 });
 $( "#datepicker" ).datepicker( "option", "dateFormat", "mm/dd/yyyy" );
 });
-</script>
+    </script>
+
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
- <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:UpdatePanel ID="UpdatePanel100" runat="server" UpdateMode="Always">
+        <ContentTemplate>
+            <% if (err == true) %>
+            <%{ %>
+            <div class="error">
+                <ul>
+                    <%for (int e_i = 0; e_i <= err_text.Count - 1; e_i++) %>
+                    <%{ %>
+                    <li>
+                        <%= err_text[e_i] %></li>
+                    <%} %>
+                </ul>
+            </div>
+            <%} %>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             First Name<a style="color: Red;">*</a> :
             <asp:TextBox ID="TextBox1" runat="server" placeholder="First Name"></asp:TextBox><br />
@@ -33,6 +52,4 @@ $( "#datepicker" ).datepicker( "option", "dateFormat", "mm/dd/yyyy" );
             <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
-   
 </asp:Content>
-

@@ -8,6 +8,22 @@
     <link href="/SpryAssets/SpryTabbedPanels.css" rel="stylesheet" type="text/css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:UpdatePanel ID="UpdatePanel100" runat="server" UpdateMode="Always">
+        <ContentTemplate>
+            <% if (err == true) %>
+            <%{ %>
+            <div class="error">
+                <ul>
+                    <%for (int e_i = 0; e_i <= err_text.Count - 1; e_i++) %>
+                    <%{ %>
+                    <li>
+                        <%= err_text[e_i] %></li>
+                    <%} %>
+                </ul>
+            </div>
+            <%} %>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     <div id="TabbedPanels1" class="TabbedPanels">
         <ul class="TabbedPanelsTabGroup">
             <li class="TabbedPanelsTab">Bus Creation</li>
