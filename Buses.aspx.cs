@@ -14,7 +14,7 @@ using System.Xml.Linq;
 public partial class Buses : System.Web.UI.Page
 {
     public System.Data.DataTable users_data;
-    public System.Data.DataTable buses= new System.Data.DataTable();
+    public System.Data.DataTable buses;
     public System.Data.DataTable routes;
     public System.Data.DataTable bus_categories;
     public Boolean err = false;
@@ -39,8 +39,14 @@ public partial class Buses : System.Web.UI.Page
             //pagecode
             all_routes();
             all_categories();
+            all_buses();
             //page code
         }
+    }
+
+    private void all_buses()
+    {
+        buses = SpecificSelectionFromTable.return_table("select * from buses order by is_deleted,bus_no");
     }
     
     protected void Button2_Click(object sender, EventArgs e)
