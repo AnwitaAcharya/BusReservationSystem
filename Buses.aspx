@@ -29,6 +29,79 @@ $($(l).children()[0]).html(i);
 }
 });
     }
+    function save()
+    {
+    var bus_no = $("#<%= TextBox1.ClientID %>").val();
+    var category = $("#<%= DropDownList1.ClientID %>").val();
+    weekday = []
+    if($("#sun").is(':checked'))
+    {
+    weekday.push(1);
+    }
+    if($("#mon").is(':checked'))
+    {
+    weekday.push(2);
+    }
+    if($("#tue").is(':checked'))
+    {
+    weekday.push(3);
+    }
+    if($("#wed").is(':checked'))
+    {
+    weekday.push(4);
+    }
+    if($("#thu").is(':checked'))
+    {
+    weekday.push(5);
+    }
+    if($("#fri").is(':checked'))
+    {
+    weekday.push(6);
+    }
+    if($("#sat").is(':checked'))
+    {
+    weekday.push(7);
+    }
+    var sl_nos = [];
+    var route_selects = [];
+    var arrival_times = [];
+     var fares = [];
+     $.each( $("#bus_associated tr"), function( i, l ){
+       if(i!=0)
+       {
+       sl_nos.push(i);
+       $.each( $(l).children(), function( j, k ){
+       if($(k).children(".route_select").length==1)
+       {
+       route_selects.push($(k).children(".route_select").val());
+       }
+        if($(k).children(".hour_select").length==1)
+       {
+       arrival_times.push($(k).children(".hour_select").val()+ ":"+$(k).children(".minute_select").val());
+       }
+       if($(k).children(".fare").length==1)
+       {
+       fares.push($(k).children(".fare").val())
+       }
+       });
+       }
+     });
+    $.ajax({type: 'POST',url:"/bus_create.aspx",data: {'bus_no':bus_no,'category':category, 'weekday': weekday, 'sl_nos': sl_nos, 'route_selects': route_selects, 'arrival_times': arrival_times, 'fares': fares},success:function(result){
+if(result.toString().trim()[0]==1)
+{
+window.open("/buses.aspx", "_self");
+}
+if(result.toString().length>10)
+{
+$("#ajax_error").html(result);
+}
+}}); 
+    //console_log(fares)
+    }
+    function console_log(msg)
+    {
+    console.log(msg);
+    }
     </script>
 
 </asp:Content>
@@ -94,6 +167,14 @@ $($(l).children()[0]).html(i);
                     <Triggers>
                     </Triggers>
                 </asp:UpdatePanel>
+                <input type="checkbox" id="sun" />Sun
+                <input type="checkbox" id="mon" />Mon
+                <input type="checkbox" id="tue" />Tue
+                <input type="checkbox" id="wed" />Wed
+                <input type="checkbox" id="thu" />Thu
+                <input type="checkbox" id="fri" />Fri
+                <input type="checkbox" id="sat" />Sat
+                <br />
                 Routes, Time, Fare set
                 <hr />
                 <table id="bus_associated" border="1">
@@ -116,7 +197,7 @@ $($(l).children()[0]).html(i);
                 </table>
                 <a style="color: green; cursor: pointer;" onclick="add_more()">+ Add</a>
             <br />
-            <input type="button" value="Save" />
+            <input type="button" value="Save" onclick="save()" />
             </div>
             <div class="TabbedPanelsContent">
                 <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
@@ -138,7 +219,7 @@ $($(l).children()[0]).html(i);
                 <thead>
                     <tr>
                         <td>
-                            Name
+                            Bus No.
                         </td>
                         <td>
                         </td>
@@ -170,7 +251,7 @@ $($(l).children()[0]).html(i);
                    } %>
                 <tr>
                     <td>
-                        <%=dr[0]%>
+                        <%=dr[1]%>
                     </td>
                     <td>
                         <% if (dr[1].ToString().Trim() == "1") %>
