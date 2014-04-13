@@ -23,8 +23,8 @@ public class Execute_Query
     }*/
     public static Boolean exec_qry(string qry)
     {
-        try
-        {
+        /*try
+        {*/
             /*SqlConnection myConn = new SqlConnection(DatabaseConnection.connection_string());
             myConn.Open();
             string strqry = qry;
@@ -41,11 +41,11 @@ public class Execute_Query
             da.Fill(ds);*/
             con.Close();
             return true;
-        }
+        /*}
         catch (Exception e)
         {
             return false;
-        }
+        }*/
 
     }
 

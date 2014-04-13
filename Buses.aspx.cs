@@ -14,7 +14,8 @@ using System.Xml.Linq;
 public partial class Buses : System.Web.UI.Page
 {
     public System.Data.DataTable users_data;
-    public System.Data.DataTable buses;
+    public System.Data.DataTable buses= new System.Data.DataTable();
+    public System.Data.DataTable routes;
     public System.Data.DataTable bus_categories;
     public Boolean err = false;
     public ArrayList err_text = new ArrayList();
@@ -41,18 +42,7 @@ public partial class Buses : System.Web.UI.Page
             //page code
         }
     }
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        string route_name = TextBox1.Text.ToString().Trim();
-        if (Execute_Query.exec_qry("insert into routes (route_name) values ('" + route_name + "')"))
-        {
-        all_routes();
-        UpdatePanel2.Update();
-        TextBox1.Text = "";
-            UpdatePanel1.Update();
-    }
-    }
-
+    
     protected void Button2_Click(object sender, EventArgs e)
     {
         string category_name = TextBox2.Text.ToString().Trim();
@@ -84,6 +74,6 @@ public partial class Buses : System.Web.UI.Page
 
     private void all_routes()
     {
-        buses = SpecificSelectionFromTable.return_table("select * from routes order by is_deleted, route_name");    
+        routes = SpecificSelectionFromTable.return_table("select * from routes where is_deleted=0 order by route_name");    
     }
 }

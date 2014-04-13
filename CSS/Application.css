@@ -1,0 +1,19 @@
+﻿table tr.head
+{
+    text-align:center;
+    font-weight:bold;
+}
+.delete
+{
+    color:Red;
+    font-weight:bold;
+    cursor:pointer;
+}
+#hidden
+{
+    display:none;
+    height:0;
+    width:0;
+    visibility:hidden;
+    overflow:hidden;
+}
