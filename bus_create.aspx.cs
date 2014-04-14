@@ -38,7 +38,7 @@ public partial class bus_create : System.Web.UI.Page
             string sl_nos = Request.Params["sl_nos[]"];
             string route_selects = Request.Params["route_selects[]"];
             string arrival_times = Request.Params["arrival_times[]"];
-            string fares = Request.Params["fares[]"];
+            //string fares = Request.Params["fares[]"];
 
             if (bus_no == null) { bus_no = ""; }
             if (category == null) { category = ""; }
@@ -46,19 +46,20 @@ public partial class bus_create : System.Web.UI.Page
             if (sl_nos == null) { sl_nos = ""; }
             if (route_selects == null) { route_selects = ""; }
             if (arrival_times == null) { arrival_times = ""; }
-            if (fares == null) { fares = ""; }
+            //if (fares == null) { fares = ""; }
 
             if (bus_no.ToString().Trim().Length == 0)
             {
                 err = true;
                 err_text.Add("Bus no can't be blank.");
             }
-            if (sl_nos.Split(',').Length != fares.Split(',').Length)
+            if (SpecificSelectionFromTable.return_table("select count(*) from buses where bus_no='" + bus_no + "' and category_id='" + category + "'").Rows[0][0].ToString().Trim() != "0") { err = true; err_text.Add("Bus No already exist."); }
+            /*if (sl_nos.Split(',').Length != fares.Split(',').Length)
             {
                 err = true;
                 err_text.Add("Please enter amount only in fare text boxes. Dont use coma(,).");
-            }
-            for (int i = 0; i <= fares.Split(',').Length - 1; i++)
+            }*/
+            /*for (int i = 0; i <= fares.Split(',').Length - 1; i++)
             {
                 try
                 {
@@ -70,7 +71,7 @@ public partial class bus_create : System.Web.UI.Page
                     err_text.Add("Please enter amount only in fare text boxes.");
                     break;
                 }
-            }
+            }*/
                 if (err == false)
                 {
                     string bus_id = IdGenerator.create();
@@ -79,10 +80,10 @@ public partial class bus_create : System.Web.UI.Page
                         string[] sl_no_ar = sl_nos.Split(',');
                         string[] route_select_ar = route_selects.Split(',');
                         string[] arrival_time_ar = arrival_times.Split(',');
-                        string[] fare_ar = fares.Split(',');
+                        //string[] fare_ar = fares.Split(',');
                         for (int i = 0; i <= sl_no_ar.Length - 1; i++)
                         {
-                            Execute_Query.exec_qry("insert into bus_details (id, sl_no, bus_id, route_id, arrival_time, fare, week_day) values ('" + IdGenerator.create()+i.ToString() + "', '" + sl_no_ar[i] + "', '" + bus_id + "', '" + route_select_ar[i] + "', '" + arrival_time_ar[i] + "', '" + fare_ar[i] + "', '" + weekday + "')");
+                            Execute_Query.exec_qry("insert into bus_details (id, sl_no, bus_id, route_id, arrival_time, fare, week_day) values ('" + IdGenerator.create()+i.ToString() + "', '" + sl_no_ar[i] + "', '" + bus_id + "', '" + route_select_ar[i] + "', '" + arrival_time_ar[i] + "', NULL, '" + weekday + "')");
                         }
                         Response.Write("1");
                     }

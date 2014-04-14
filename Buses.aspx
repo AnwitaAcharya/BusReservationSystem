@@ -13,7 +13,7 @@
     var route_select = $("#hidden .route_select").html();
     var hour_select = $("#hidden .hour_select").html();
     var minute_select = $("#hidden .minute_select").html();
-    $("#bus_associated tr:last").after("<tr><td>"+ ($("#bus_associated tr").length) +"</td><td><select class='route_select'>" + route_select + "</select></td><td><select class='hour_select'>" + hour_select + "</select><select class='minute_select'>" + minute_select + "</select></td><td><input type='text' class='fare' /></td><td><a class='delete' onclick='delete_row(this)'>X</a></td></tr>")
+    $("#bus_associated tr:last").after("<tr><td>"+ ($("#bus_associated tr").length) +"</td><td><select class='route_select'>" + route_select + "</select></td><td><select class='hour_select'>" + hour_select + "</select><select class='minute_select'>" + minute_select + "</select></td><td><a class='delete' onclick='delete_row(this)'>X</a></td></tr>")
     }
     function delete_row(th_is)
     {
@@ -65,7 +65,6 @@ $($(l).children()[0]).html(i);
     var sl_nos = [];
     var route_selects = [];
     var arrival_times = [];
-     var fares = [];
      $.each( $("#bus_associated tr"), function( i, l ){
        if(i!=0)
        {
@@ -79,14 +78,10 @@ $($(l).children()[0]).html(i);
        {
        arrival_times.push($(k).children(".hour_select").val()+ ":"+$(k).children(".minute_select").val());
        }
-       if($(k).children(".fare").length==1)
-       {
-       fares.push($(k).children(".fare").val())
-       }
        });
        }
      });
-    $.ajax({type: 'POST',url:"/bus_create.aspx",data: {'bus_no':bus_no,'category':category, 'weekday': weekday, 'sl_nos': sl_nos, 'route_selects': route_selects, 'arrival_times': arrival_times, 'fares': fares},success:function(result){
+    $.ajax({type: 'POST',url:"/bus_create.aspx",data: {'bus_no':bus_no,'category':category, 'weekday': weekday, 'sl_nos': sl_nos, 'route_selects': route_selects, 'arrival_times': arrival_times},success:function(result){
 if(result.toString().trim()[0]==1)
 {
 window.open("/buses.aspx", "_self");
@@ -187,9 +182,6 @@ $("#ajax_error").html(result);
                         </td>
                         <td>
                             Time
-                        </td>
-                        <td>
-                            Fare
                         </td>
                         <td>
                         </td>
