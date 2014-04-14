@@ -1,4 +1,4 @@
-create table users(id nvarchar(1000) NOT NULL, first_name nvarchar(1000) NOT NULL, last_name nvarchar(1000) , email nvarchar(100) NOT NULL, email_verified tinyint default 0, password  nvarchar(3000) NOT NULL, mobile nvarchar(100), mobile_verified tinyint default 0, dob datetime NOT NULL, address_line1 nvarchar(1000), address_line2 nvarchar(1000), city nvarchar(100), state nvarchar(100), country  nvarchar(100), user_type nvarchar(100) default 'normal', is_deleted tinyint default 0,  PRIMARY KEY (id))
+create table users(id nvarchar(1000) NOT NULL, first_name nvarchar(1000) NOT NULL, last_name nvarchar(1000) , email nvarchar(100) NOT NULL, email_verified tinyint default 0, password  nvarchar(3000) NOT NULL, mobile nvarchar(100), mobile_verified tinyint default 0, dob navarchar(100) NOT NULL, address_line1 nvarchar(1000), address_line2 nvarchar(1000), city nvarchar(100), state nvarchar(100), country  nvarchar(100), user_type nvarchar(100) default 'normal', is_deleted tinyint default 0,  PRIMARY KEY (id))
 
 
 insert into users (id,first_name, email, email_verified, password, mobile_verified, dob, user_type) values (1,'Admin', 'surajit16@gmail.com', 1, 'daa727efc9a6c5cf18e742c3521bfde7', 1, '10/05/1990', 'admin')
@@ -12,6 +12,7 @@ create table buses(id nvarchar(1000) NOT NULL, bus_no nvarchar(1000) NOT NULL, c
 
 create table bus_details(id nvarchar(1000) NOT NULL,sl_no decimal not null, bus_id nvarchar(1000) NOT NULL, route_id nvarchar(1000) NOT NULL, arrival_time nvarchar(100), fare decimal(16,2), is_deleted tinyint default 0, week_day nvarchar(1000),  PRIMARY KEY (id), FOREIGN KEY (route_id) REFERENCES routes(id), FOREIGN KEY (bus_id) REFERENCES buses(id))
 
+create table fares(id nvarchar(1000) NOT NULL, bus_id nvarchar(1000), category_id nvarchar(1000), source_id nvarchar(1000) NOT NULL, destination_id nvarchar(1000), fare decimal(16,2),  PRIMARY KEY (id),  FOREIGN KEY (bus_id) REFERENCES buses(id), FOREIGN KEY (category_id) REFERENCES bus_categories(id), FOREIGN KEY (source_id) REFERENCES routes(id), FOREIGN KEY (destination_id) REFERENCES routes(id))
 
 
 
