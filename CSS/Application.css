@@ -1,4 +1,10 @@
-﻿table tr.head
+﻿html, body, form
+{  
+    height: 100%;
+    width: 100%;
+    margin:0;
+}
+table tr.head
 {
     text-align:center;
     font-weight:bold;
@@ -16,4 +22,111 @@
     width:0;
     visibility:hidden;
     overflow:hidden;
+}
+.margin-right-30 {
+    margin-right: 30px !important;
+}
+.float-left {
+    float: left !important;
+}
+.bg-light {
+    background-color: #E8E8E8 !important;
+    background-image: none !important;
+}
+.shadow {
+    box-shadow: 3px 3px #CCCCCC;
+}
+.grey-border {
+    border: 1px solid #CCCCCC;
+}
+.big-box {
+    height: 125px;
+    width: 200px;
+}
+.margin-top-20 {
+    margin-top: 20px !important;
+}
+.dashboard-heading {
+    color: #06043B;
+    font-size: 13px;
+    margin-bottom: 30px;
+    margin-top: 15px;
+    padding: 0 15px;
+    text-transform: capitalize;
+    width: 100%;
+    margin:0;
+}
+.margin-bottom-20 {
+    margin-bottom: 20px !important;
+}
+.big-text {
+    font-size: 45px;
+    font-weight: bold;
+    padding: 0 15px;
+    width: 100%;
+}
+.label-underline {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: medium none;
+    height: 1px;
+}
+.submit_button {
+    background: none repeat scroll 0 0 #27292B;
+    border: medium none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: arial;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    padding: 7px 10px;
+    border-radius: 5px;
+}
+.submit_button:hover 
+{
+   background: none repeat scroll 0 0 #373b3f;
+}
+
+
+
+
+
+.error, .notice, .success, .help { padding: .8em; margin-bottom: 1em; border: 2px solid #ddd; text-align:left; }
+
+.error { background: #FBE3E4; color: #D12F19; border-color: #FBC2C4; }
+
+.notice { background: #FFF6BF; color: #817134; border-color: #FFD324; }
+
+.success, .help { background: #E6EFC2; color: #529214; border-color: #C6D880; }
+
+.error a { color: #D12F19; }
+
+.notice a { color: #817134; }
+
+.success a, .help a { color: #529214; }
+
+ 
+
+.error ul,.notice ul,.success ul,.help ul { margin:0px; padding-top:0px; padding-bottom:0px; padding-left:10px; padding-right:10px;}
+.table_bg_color
+{
+    background-color: #E8E8E8;
+}
+.table_bg_color td
+{
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:3px;
+    padding-bottom:3px;
+    border-bottom: 1px solid #C8C8C8;
+}
+.table_bg_color a
+{
+ color:Blue;
+ text-decoration:none;
+ cursor:pointer;   
+}
+.list
+{
+    margin-bottom:20px;
 }

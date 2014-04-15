@@ -28,24 +28,39 @@ $("#ajax_error").html(result);
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div id="ajax_error">
     </div>
-    <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true">
-    </asp:DropDownList>
+    <table>
+        <tr>
+            <td>
+                Select Bus Category :
+            </td>
+            <td>
+                <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="true">
+                </asp:DropDownList>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <hr class="label-underline">
+            </td>
+        </tr>
+    </table>
     <%if (selected.Length > 3) %>
     <%{ %>
+    <div style="max-width:940px; overflow:auto;">
     <table id="fare_table">
         <%for (int i = 0; i <= routes.Rows.Count; i++) %>
         <%{ %>
         <tr>
             <%for (int j = 0; j <= routes.Rows.Count; j++) %>
             <%{ %>
-            <td>
+            <td class="table_bg_color">
                 <%if ((i == 0) & (j > 0)) %>
                 <%{ %>
-                <%= routes.Rows[j - 1][1].ToString().Trim()%>
+                <b style="margin-left:4px; margin-right:4px;"><%= routes.Rows[j - 1][1].ToString().Trim()%></b>
                 <%} %>
                 <%else if ((j == 0) & (i > 0)) %>
                 <%{ %>
-                <%= routes.Rows[i - 1][1].ToString().Trim()%>
+                <b style="margin-left:4px; margin-right:4px;"><%= routes.Rows[i - 1][1].ToString().Trim()%></b>
                 <%} %>
                 <%else if (i == j) %>
                 <%{ %>
@@ -61,7 +76,8 @@ $("#ajax_error").html(result);
                 <% string val = "0"; %>
                 <% System.Data.DataRow[] find_rows = fares.Select("(source_id = '" + routes.Rows[i - 1][0].ToString().Trim() + "' and destination_id = '" + routes.Rows[j - 1][0].ToString().Trim() + "') or (source_id = '" + routes.Rows[j - 1][0].ToString().Trim() + "' and destination_id = '" + routes.Rows[i - 1][0].ToString().Trim() + "')"); %>
                 <%if (find_rows.Length > 0) { val = find_rows[0][5].ToString().Trim(); } %>
-                <input type="text" id="<%= routes.Rows[i - 1][0].ToString().Trim() + "_" + routes.Rows[j - 1][0].ToString().Trim()%>" value="<%=val %>" />
+                <input type="text" id="<%= routes.Rows[i - 1][0].ToString().Trim() + "_" + routes.Rows[j - 1][0].ToString().Trim()%>"
+                    value="<%=val %>" />
                 <%} %>
                 <%} %>
             </td>
@@ -69,6 +85,7 @@ $("#ajax_error").html(result);
         </tr>
         <% }%>
     </table>
-    <input type="button" value="save" onclick="save()" />
+</div>
+    <input type="button" value="save" onclick="save()" class="submit_button" />
     <%} %>
 </asp:Content>

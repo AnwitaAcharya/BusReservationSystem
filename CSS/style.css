@@ -1,0 +1,69 @@
+@charset "utf-8";
+/* CSS Document */
+
+.backgroundImg{
+	background-image:url(../image/SpinachNetworks_Background.png);
+	background-repeat:repeat-x repeat-y;
+}
+.leftPanelMenuDiv{
+		background: -webkit-gradient(linear, left top, left bottom, from(rgba(250,250,250,0.1)), to(transparent));
+		background: linear-gradient(to bottom,rgba(250,250,250,0.12),transparent);
+		border-bottom:rgba(0,18,36,0.55) solid 1px;
+}
+.leftPanelMenuDiv:HOVER{
+		background: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.25)), to(transparent));
+		background: linear-gradient(to bottom,rgba(0,0,0,0.25),transparent);
+}
+.mainBodyDiv_radius_4{
+	border-radius:4px;
+	border:#cccccc;
+	box-shadow:0px 0px 10px #aaa;
+}
+.intraDivMenu{
+	background: -webkit-gradient(linear, left top, left bottom, from(#ddd), to(#eee));
+		background: linear-gradient(to bottom,#ddd,#eee);
+		border-bottom:#ddd solid 1px;
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Open Sans'), local('OpenSans'), url('../css/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff') format('woff');
+}
+.divRightGreyGradient{
+	background: -webkit-gradient(linear, left top, right bottom, from(#aaa), to(#eee));
+		background: linear-gradient(to right,#aaa,#eee);
+	
+}
+.profilePicDiv{
+	border-radius:4px;
+	border:#cccccc;
+	background-color:rgba(0,0,0,0.1);
+}
+.postButton{
+	background: -webkit-gradient(linear, left top, right bottom, from(#008BCE), to(#005B88));
+	background: linear-gradient(to bottom,#008BCE,#005B88);
+	border:#005b88 1px solid;
+	border-radius:3px;
+	color:#fff;
+}
+.postButton:HOVER{
+	background: -webkit-gradient(linear, left top, right bottom, from(#005B88), to(#008BCE));
+	background: linear-gradient(to bottom,#005B88,#008BCE);
+}
+.postSupplements{
+	background: -webkit-gradient(linear, left top, right bottom, from(#ffffff), to(#eeeeee));
+	background: linear-gradient(to bottom,#ffffff,#eeeeee);
+}
+.spinachIconDiv{
+	background: -webkit-gradient(linear, left top, right bottom, from(rgba(0,0,0,0.5)), to(transparent));
+	background: linear-gradient(to bottom,rgba(0,0,0,0.5),transparent);
+}
+.topMenuHover:HOVER{
+	background: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.7)), to(transparent));
+	background: linear-gradient(to bottom,rgba(0,0,0,0.7),transparent);
+}
+.notificationHover:HOVER{
+	background: -webkit-gradient(linear, left top, right bottom, from(rgba(250,250,250,0.2)), to(transparent));
+	background: linear-gradient(to bottom,rgba(250,250,250,0.2),transparent);
+}

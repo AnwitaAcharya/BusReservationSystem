@@ -51,7 +51,7 @@ public partial class agent_operation : System.Web.UI.Page
             }
             else if (req_type.ToLower().Trim() == "edit")
             {
-                agent = SpecificSelectionFromTable.return_table("select * from users where id='" + req_id + "'");
+                agent = SpecificSelectionFromTable.return_table("select * from users where id='" + req_id + "' and is_deleted=0");
                 if (agent.Rows.Count != 1)
                 {
                     Response.Redirect("/agents.aspx");
