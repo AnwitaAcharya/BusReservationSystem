@@ -10,11 +10,11 @@
     </div>
     <div class="bg-light float-left big-box grey-border shadow margin-right-30">
       <h4 class="dashboard-heading margin-top-20">Total Places</h4>
-      <div class="big-text margin-bottom-20"><%= stats.Rows[1][0] %></div>
+      <div class="big-text margin-bottom-20"><%= stats.Rows[2][0] %></div>
     </div>
     <div class="bg-light float-left big-box grey-border shadow margin-right-30">
       <h4 class="dashboard-heading margin-top-20">Total Buses</h4>
-      <div class="big-text margin-bottom-20"><%= stats.Rows[2][0] %></div>
+      <div class="big-text margin-bottom-20"><%= stats.Rows[1][0] %></div>
     </div>
     <div class="bg-light float-left big-box grey-border shadow">
       <h4 class="dashboard-heading margin-top-20">Todays Income</h4>

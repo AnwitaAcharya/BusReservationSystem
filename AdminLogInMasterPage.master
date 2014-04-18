@@ -62,7 +62,7 @@
                                 </table>
                             </div>
                             <!-- Menu 1 -->
-                            <div style="height: 45px; border-top: rgba(250,250,250,0.15) solid 1px" class="leftPanelMenuDiv">
+                            <div style="height: 45px; border-top: rgba(250,250,250,0.15) solid 1px; cursor:pointer;" class="leftPanelMenuDiv" onclick="window.open('/Agents.aspx', '_self')">
                                 <div style="height: 16px">
                                 </div>
                                 <div>
@@ -76,7 +76,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div style="height: 45px" class="leftPanelMenuDiv">
+                            <div style="height: 45px; cursor:pointer;" class="leftPanelMenuDiv" onclick="window.open('/Routes.aspx', '_self')">
                                 <div style="height: 15px">
                                 </div>
                                 <div>
@@ -90,7 +90,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div style="height: 45px" class="leftPanelMenuDiv">
+                            <div style="height: 45px; cursor:pointer;" class="leftPanelMenuDiv" onclick="window.open('/Buses.aspx', '_self')">
                                 <div style="height: 15px">
                                 </div>
                                 <div>
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                             <!-- Menu 2 -->
-                            <div style="height: 45px" class="leftPanelMenuDiv">
+                            <div style="height: 45px; cursor:pointer;" class="leftPanelMenuDiv" onclick="window.open('/Fares.aspx', '_self')">
                                 <div style="height: 14px">
                                 </div>
                                 <div>
@@ -120,7 +120,7 @@
                                 </div>
                             </div>
                             <!-- Menu 3 -->
-                            <div style="height: 45px" class="leftPanelMenuDiv">
+                            <div style="height: 45px; cursor:pointer;" class="leftPanelMenuDiv" onclick="window.open('/finance_reports.aspx', '_self')">
                                 <div style="height: 13px">
                                 </div>
                                 <div>
@@ -135,6 +135,20 @@
                                 </div>
                             </div>
                             <!-- Menu 4 -->
+                            <div style="height: 45px; cursor:pointer;" class="leftPanelMenuDiv" onclick="window.open('/admin_accounts.aspx', '_self')">
+                                <div style="height: 13px">
+                                </div>
+                                <div>
+                                    <table cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td>
+                                                <a href="/admin_accounts.aspx" style="color: rgba(250,250,250,0.8); font-weight: bold; padding-left: 10px;
+                                                    font-family: Arial; text-decoration: none; font-size: 11px">Account Settings</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                         </td>
                         <td style="width: 950px; vertical-align: top">
                             <!-- Top Div -->

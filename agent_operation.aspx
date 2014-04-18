@@ -3,16 +3,17 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
-    <script>
+    <script type="text/javascript">
 $(function() {
 $( "#<%= TextBox6.ClientID %>" ).datepicker({
 showOn: "button",
 buttonImage: "/jquery-ui/images/calendar.gif",
-buttonImageOnly: true,
+buttonImageOnly: true
 });
-$( "#datepicker" ).datepicker( "option", "dateFormat", "dd/mm/yyyy" );
+$( "#<%= TextBox6.ClientID %>" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
 });
     </script>
+
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
