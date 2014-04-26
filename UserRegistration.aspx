@@ -39,10 +39,10 @@
     <table style="height:100px">
     <tr>
     <td>
-    <img src="Image/BBS.png" alt ="Babuji Bus Services" height ="90px" />
+    <img src="Image/BBS.png" alt ="Babujee Bus Services" height ="90px" />
     </td>
     <td>
-    <label style="font-family :Verdana ; font-size :24px; color :#ffffff; ">Babuji Bus Services</label>
+    <label style="font-family :Verdana ; font-size :24px; color :#ffffff; ">Babujee Bus Services</label>
     </td>    
     </tr>
     </table>

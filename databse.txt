@@ -6,7 +6,7 @@ insert into users (id,first_name, email, email_verified, password, mobile_verifi
 
 create table routes(id nvarchar(1000) NOT NULL, route_name nvarchar(1000) NOT NULL, is_deleted tinyint default 0,  PRIMARY KEY (id))
 
-create table bus_categories(id nvarchar(1000) NOT NULL, category_name nvarchar(1000) NOT NULL, is_deleted tinyint default 0,  PRIMARY KEY (id))
+create table bus_categories(id nvarchar(1000) NOT NULL, category_name nvarchar(1000) NOT NULL, is_deleted tinyint default 0, seating_type_id nvarchar(1000) NOT NULL default 1, PRIMARY KEY (id))
 
 create table buses(id nvarchar(1000) NOT NULL, bus_no nvarchar(1000) NOT NULL, category_id nvarchar(1000) NOT NULL, is_deleted tinyint default 0, week_day nvarchar(1000), PRIMARY KEY (id), FOREIGN KEY (category_id) REFERENCES bus_categories(id))
 
@@ -14,7 +14,7 @@ create table bus_details(id nvarchar(1000) NOT NULL,sl_no decimal not null, bus_
 
 create table fares(id nvarchar(1000) NOT NULL, bus_id nvarchar(1000), category_id nvarchar(1000), source_id nvarchar(1000) NOT NULL, destination_id nvarchar(1000), fare decimal(16,2),  PRIMARY KEY (id),  FOREIGN KEY (bus_id) REFERENCES buses(id), FOREIGN KEY (category_id) REFERENCES bus_categories(id), FOREIGN KEY (source_id) REFERENCES routes(id), FOREIGN KEY (destination_id) REFERENCES routes(id))
 
-
+CREATE PROCEDURE sql_qry @sql text AS begin exec(@sql) end
 
 
 
