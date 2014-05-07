@@ -7,46 +7,23 @@
         <ContentTemplate>
             <% if (err == true) %>
             <%{ %>
-            <table class="error">
-                <tr>
-                    <td>
-                        <ul>
-                            <%for (int e_i = 0; e_i <= err_text.Count - 1; e_i++) %>
-                            <%{ %>
-                            <li>
-                                <%= err_text[e_i] %></li>
-                            <%} %>
-                        </ul>
-                    </td>
-                </tr>
-            </table>
+            <div class="error">
+                <ul>
+                    <%for (int e_i = 0; e_i <= err_text.Count - 1; e_i++) %>
+                    <%{ %>
+                    <li>
+                        <%= err_text[e_i] %></li>
+                    <%} %>
+                </ul>
+            </div>
             <%} %>
         </ContentTemplate>
     </asp:UpdatePanel>
  <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            <table>
-                <tr>
-                    <td>
-                        Place Name<a style="color: Red;">*</a> :
-                    </td>
-                    <td>
-                        <asp:TextBox ID="TextBox1" runat="server" placeholder="Place Name"></asp:TextBox><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <hr class="label-underline">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td>
-                        <asp:Button ID="Button1" runat="server" Text="Save" CssClass="submit_button" OnClick="Button1_Click" />
-                    </td>
-                </tr>
-            </table>
+            Place Name<a style="color: Red;">*</a> :
+            <asp:TextBox ID="TextBox1" runat="server" placeholder="Place Name"></asp:TextBox><br />
+                       <asp:Button ID="Button1" runat="server" Text="Save" OnClick="Button1_Click" />
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="Button1" EventName="Click" />

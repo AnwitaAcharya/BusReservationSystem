@@ -24,7 +24,7 @@ public class DatabaseConnection
 
     public static string connection_string()
     {
-        string dbPath = "Data Source=SURAJIT1-85CFDA;Initial Catalog=ticket_booking;User ID=skynet;Password=love";
+        string dbPath = "Data Source=SPINACH-4ABF8C7;Initial Catalog=ticket_booking;User ID=skynet;Password=love";
         return dbPath;
     }
 }

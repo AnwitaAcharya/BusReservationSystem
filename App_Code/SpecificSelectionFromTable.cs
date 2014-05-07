@@ -32,7 +32,7 @@ public class SpecificSelectionFromTable
             string qry = query;
             System.Data.SqlClient.SqlDataAdapter ad = new System.Data.SqlClient.SqlDataAdapter(qry, con);
             ad.Fill(ds);
-            return ds.Tables[0];
+           
         }
         catch (Exception ex)
         {
@@ -41,6 +41,6 @@ public class SpecificSelectionFromTable
             System.Data.DataTable dt = new System.Data.DataTable();
             return dt;
         }
-        
+        return ds.Tables[0];
     }
 }

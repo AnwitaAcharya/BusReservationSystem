@@ -13,7 +13,7 @@
     var route_select = $("#hidden .route_select").html();
     var hour_select = $("#hidden .hour_select").html();
     var minute_select = $("#hidden .minute_select").html();
-    $("#bus_associated tr:last").after("<tr><td align='right'>"+ ($("#bus_associated tr").length) +"</td><td align='center'><select class='route_select'>" + route_select + "</select></td><td align='center'><select class='hour_select'>" + hour_select + "</select><select class='minute_select'>" + minute_select + "</select></td><td align='center'><a class='delete' onclick='delete_row(this)'>X</a></td></tr>")
+    $("#bus_associated tr:last").after("<tr><td>"+ ($("#bus_associated tr").length) +"</td><td><select class='route_select'>" + route_select + "</select></td><td><select class='hour_select'>" + hour_select + "</select><select class='minute_select'>" + minute_select + "</select></td><td><a class='delete' onclick='delete_row(this)'>X</a></td></tr>")
     }
     function delete_row(th_is)
     {
@@ -98,20 +98,7 @@ $("#ajax_error").html(result);
     console.log(msg);
     }
     </script>
-<style>
-    .route_select
-    {
-        width:110px;
-    }
-    
-#bus_associated {
-    margin: 0 auto;
-}
-.label-underline
-{
-    background: none repeat scroll 0 0 #DDDDDD;
-}
-</style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div id="hidden">
@@ -137,6 +124,22 @@ $("#ajax_error").html(result);
             <%} %>
         </select>
     </div>
+    <asp:UpdatePanel ID="UpdatePanel100" runat="server" UpdateMode="Always">
+        <ContentTemplate>
+            <% if (err == true) %>
+            <%{ %>
+            <div class="error">
+                <ul>
+                    <%for (int e_i = 0; e_i <= err_text.Count - 1; e_i++) %>
+                    <%{ %>
+                    <li>
+                        <%= err_text[e_i] %></li>
+                    <%} %>
+                </ul>
+            </div>
+            <%} %>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     <div id="TabbedPanels1" class="TabbedPanels">
         <ul class="TabbedPanelsTabGroup">
             <li class="TabbedPanelsTab">Bus Creation</li>
@@ -145,138 +148,55 @@ $("#ajax_error").html(result);
         <div class="TabbedPanelsContentGroup">
             <div class="TabbedPanelsContent">
                 <div class="float_left" id="ajax_error">
+                
                 </div>
-                <table>
-                    <tr>
+                BusNo.<a style="color: Red;">*</a> :
+                <asp:TextBox ID="TextBox1" runat="server" placeholder="Bus No"></asp:TextBox><br />
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        Category<a style="color: Red;">*</a> :
+                        <asp:DropDownList ID="DropDownList1" runat="server">
+                        </asp:DropDownList>
+                        <br />
+                    </ContentTemplate>
+                    <Triggers>
+                    </Triggers>
+                </asp:UpdatePanel>
+                <input type="checkbox" id="sun" />Sun
+                <input type="checkbox" id="mon" />Mon
+                <input type="checkbox" id="tue" />Tue
+                <input type="checkbox" id="wed" />Wed
+                <input type="checkbox" id="thu" />Thu
+                <input type="checkbox" id="fri" />Fri
+                <input type="checkbox" id="sat" />Sat
+                <br />
+                Routes, Time, Fare set
+                <hr />
+                <table id="bus_associated" border="1">
+                    <tr class="head">
                         <td>
-                            BusNo.<a style="color: Red;">*</a> :
-                        </td>
-                        <td>
-                            <asp:TextBox ID="TextBox1" runat="server" placeholder="Bus No"></asp:TextBox><br />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <hr class="label-underline">
-                        </td>
-                    </tr>
-                    <tr>
-                         <td>
-                                Category<a style="color: Red;">*</a> :                        
-                        </td>
-                        <td>
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                            <ContentTemplate>
-                                <asp:DropDownList ID="DropDownList1" runat="server">
-                                </asp:DropDownList>
-                            </ContentTemplate>
-                            <Triggers>
-                            </Triggers>
-                        </asp:UpdatePanel>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <hr class="label-underline">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="checkbox" id="sun" />Sun
-                            <input type="checkbox" id="mon" />Mon
-                            <input type="checkbox" id="tue" />Tue
-                            <input type="checkbox" id="wed" />Wed
-                            <input type="checkbox" id="thu" />Thu
-                            <input type="checkbox" id="fri" />Fri
-                            <input type="checkbox" id="sat" />Sat
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <hr class="label-underline">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            Routes, Time, Fare set
-                            <hr />
-                            <table id="bus_associated" border="1">
-                                <tr class="head">
-                                    <td style="width: 50px; overflow: hidden;">
-                                        Sl No.
-                                    </td>
-                                    <td style="width: 120px; overflow: hidden;">
-                                        Place Name
-                                    </td>
-                                    <td style="width: 100px; overflow: hidden;">
-                                        Time
-                                    </td>
-                                    <td style="width: 20px; overflow: hidden;">
-                                    </td>
-                                </tr>
-                            </table>
-                            <a style="color: green; cursor: pointer; float:right;" onclick="add_more()">+ Add</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <hr class="label-underline">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                            Sl No.
                         </td>
                         <td>
-                            <input type="button" value="Save" class="submit_button" onclick="save()" />
+                            Place Name
+                        </td>
+                        <td>
+                            Time
+                        </td>
+                        <td>
                         </td>
                     </tr>
                 </table>
+                <a style="color: green; cursor: pointer;" onclick="add_more()">+ Add</a>
+            <br />
+            <input type="button" value="Save" onclick="save()" />
             </div>
             <div class="TabbedPanelsContent">
-                <asp:UpdatePanel ID="UpdatePanel100" runat="server" UpdateMode="Always">
-                    <ContentTemplate>
-                        <% if (err == true) %>
-                        <%{ %>
-                        <table class="error">
-                            <tr>
-                                <td>
-                                    <ul>
-                                        <%for (int e_i = 0; e_i <= err_text.Count - 1; e_i++) %>
-                                        <%{ %>
-                                        <li>
-                                            <%= err_text[e_i] %></li>
-                                        <%} %>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </table>
-                        <%} %>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
                 <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-                        <table>
-                            <tr>
-                                <td>
-                                    Category Name<a style="color: Red;">*</a> :
-                                </td>
-                                <td>
-                                    <asp:TextBox ID="TextBox2" runat="server" placeholder="Category Name"></asp:TextBox><br />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <hr class="label-underline">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                    <asp:Button ID="Button2" runat="server" Text="Save" CssClass="submit_button" OnClick="Button2_Click" />
-                                </td>
-                            </tr>
-                        </table>
+                        Category Name<a style="color: Red;">*</a> :
+                        <asp:TextBox ID="TextBox2" runat="server" placeholder="Category Name"></asp:TextBox><br />
+                        <asp:Button ID="Button2" runat="server" Text="Save" OnClick="Button2_Click" />
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="Button2" EventName="Click" />
@@ -287,45 +207,54 @@ $("#ajax_error").html(result);
     </div>
     <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            <table cellpadding="0" cellspacing="0" class="list">
+            <table cellpadding="0" cellspacing="0" border="1">
+                <thead>
+                    <tr>
+                        <td>
+                            Bus No.
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </thead>
                 <% Boolean active_started = false; %>
                 <% Boolean inactive_started = false; %>
                 <% System.Data.DataRow dr;
                    for (int i = 0; i <= buses.Rows.Count - 1; i++)
                    {
                        dr = buses.Rows[i];  %>
-                <% if ((dr[3].ToString().Trim() == "0") & (active_started == false))
+                <% if ((dr[1].ToString().Trim() == "0") & (active_started == false))
                    {%>
                 <tr>
-                    <td colspan="2" style="padding-top: 10px; padding-bottom: 4px;">
+                    <td colspan="2">
                         <b>Active</b>
                     </td>
                 </tr>
                 <% active_started = true;
                    } %>
-                <% if ((dr[3].ToString().Trim() == "1") & (inactive_started == false))
+                <% if ((dr[1].ToString().Trim() == "1") & (inactive_started == false))
                    {%>
                 <tr>
-                    <td colspan="2" style="padding-top: 10px; padding-bottom: 4px;">
+                    <td colspan="2">
                         <b>Inactive</b>
                     </td>
                 </tr>
                 <% inactive_started = true;
                    } %>
-                <tr class="table_bg_color">
+                <tr>
                     <td>
                         <%=dr[1]%>
                     </td>
                     <td>
-                        <% if (dr[3].ToString().Trim() == "1") %>
+                        <% if (dr[1].ToString().Trim() == "1") %>
                         <%{ %>
-                        <a href="/bus_operation.aspx?req_type=active&req_id=<%= dr[0].ToString().Trim() %>">
+                        <a href="/route_operation.aspx?req_type=active&req_id=<%= dr[0].ToString().Trim() %>">
                             Active</a>
                         <%} %>
                         <%else %>
                         <%{ %>
-                        <a href="/bus_operation.aspx?req_type=edit&req_id=<%= dr[0].ToString().Trim() %>">
-                            Edit</a> <a href="/bus_operation.aspx?req_type=inactive&req_id=<%= dr[0].ToString().Trim() %>">
+                        <a href="/route_operation.aspx?req_type=edit&req_id=<%= dr[0].ToString().Trim() %>">
+                            Edit</a> <a href="/route_operation.aspx?req_type=inactive&req_id=<%= dr[0].ToString().Trim() %>">
                                 Inactive</a>
                         <%} %>
                     </td>

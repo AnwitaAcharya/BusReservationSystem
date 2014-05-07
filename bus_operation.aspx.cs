@@ -14,16 +14,12 @@ using System.Xml.Linq;
 public partial class bus_operation : System.Web.UI.Page
 {
     public System.Data.DataTable users_data;
-    public System.Data.DataTable bus_categories;
-    public System.Data.DataTable bus;
-    public System.Data.DataTable bus_details;
-    public System.Data.DataTable routes;
+    public System.Data.DataTable agent;
     public string req_type;
     public string req_id;
     public Boolean err = false;
     public ArrayList err_text = new ArrayList();
-    public string selected;
-
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["admin_username"] == null)
@@ -55,20 +51,22 @@ public partial class bus_operation : System.Web.UI.Page
             }
             else if (req_type.ToLower().Trim() == "edit")
             {
-                bus = SpecificSelectionFromTable.return_table("select * from buses where id='" + req_id + "'");
-                if (bus.Rows.Count != 1)
+                agent = SpecificSelectionFromTable.return_table("select * from buses where id='" + req_id + "'");
+                if (agent.Rows.Count != 1)
                 {
                     Response.Redirect("/buses.aspx");
                 }
                 else
                 {
-                    bus_details = SpecificSelectionFromTable.return_table("select * from bus_details where bus_id = '" + req_id + "' and is_deleted='0' order by sl_no");
                     if (!IsPostBack)
                     {
-                        TextBox1.Text = bus.Rows[0][1].ToString().Trim();
+                        TextBox1.Text = agent.Rows[0][1].ToString().Trim();
+                        TextBox2.Text = agent.Rows[0][2].ToString().Trim();
+                        TextBox3.Text = agent.Rows[0][3].ToString().Trim();
+                        //TextBox4.Text=agent.Rows[0][5].ToString().Trim();
+                        TextBox5.Text = agent.Rows[0][6].ToString().Trim();
+                        TextBox6.Text = agent.Rows[0][8].ToString().Trim().Split(' ')[0];
                     }
-                    all_categories();
-                    all_routes();
                 }
             }
             else
@@ -80,27 +78,35 @@ public partial class bus_operation : System.Web.UI.Page
         }
     }
 
-    private void all_categories()
+    protected void Button1_Click(object sender, EventArgs e)
     {
-        if (IsPostBack)
+        string first_name = TextBox1.Text.ToString().Trim();
+        string last_name = TextBox2.Text.ToString().Trim();
+        string email = TextBox3.Text.ToString().Trim();
+        string mobile = TextBox5.Text.ToString().Trim();
+        string dob = TextBox6.Text.ToString().Trim();
+        if (first_name.Length == 0) { err = true; err_text.Add("First Nmae can't be blank."); }
+        if (email.Length == 0) { err = true; err_text.Add("Email can't be blank."); }
+        if (dob.Length == 0) { err = true; err_text.Add("Date of birth can't be blank."); }
+        if (SpecificSelectionFromTable.return_table("select count(*) from users where email='" + email + "' and id not in ('" + req_id + "')").Rows[0][0].ToString().Trim() != "0") { err = true; err_text.Add("Email already exist."); }
+        if (err == false)
         {
-            selected = DropDownList1.Text;
+            if (TextBox4.Text.Trim().Length > 0)
+            {
+                string password = MD5Hash.encrypt(TextBox4.Text.ToString().Trim());
+                if (Execute_Query.exec_qry("update users set first_name ='" + first_name + "', last_name='" + last_name + "', email='" + email + "', password='" + password + "', mobile='" + mobile + "', dob='" + dob + "' where id='" + req_id + "'"))
+                {
+                    Response.Redirect("/buses.aspx");
+                }
+            }
+            else
+            {
+                if (Execute_Query.exec_qry("update users set first_name ='" + first_name + "', last_name='" + last_name + "', email='" + email + "', mobile='" + mobile + "', dob='" + dob + "' where id='" + req_id + "'"))
+                {
+                    Response.Redirect("/buses.aspx");
+                }
+            }
         }
-        else
-        {
-            selected = bus.Rows[0][2].ToString().Trim();
-        }
-            bus_categories = SpecificSelectionFromTable.return_table("select * from bus_categories where is_deleted=0 order by category_name");
-        DropDownList1.Items.Clear();
-        for (int i = 0; i <= bus_categories.Rows.Count - 1; i++)
-        {
-            ListItem item = new ListItem(bus_categories.Rows[i][1].ToString().Trim(), bus_categories.Rows[i][0].ToString().Trim());
-            DropDownList1.Items.Add(item);
-        }
-        DropDownList1.SelectedValue = selected;
-    }
-    private void all_routes()
-    {
-        routes = SpecificSelectionFromTable.return_table("select * from routes where is_deleted=0 order by route_name");
+
     }
 }
