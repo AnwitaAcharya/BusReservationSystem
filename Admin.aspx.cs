@@ -13,6 +13,7 @@ using System.Xml.Linq;
 public partial class Admin : System.Web.UI.Page 
 {
     public System.Data.DataTable users_data;
+    public System.Data.DataTable stats;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["admin_username"] == null)
@@ -31,7 +32,7 @@ public partial class Admin : System.Web.UI.Page
             }
             //pagecode
 
-
+            stats = SpecificSelectionFromTable.return_table("(select count(*) from users where is_deleted=0 and user_type='agent') UNION ALL (select count(*) from buses where is_deleted=0) UNION ALL (select count(*) from routes where is_deleted=0)");
             //page code
         }
         //Execute_Query.exec_qry("insert into test values ('sura')")

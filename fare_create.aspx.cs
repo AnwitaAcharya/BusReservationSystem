@@ -79,7 +79,7 @@ public partial class fare_create : System.Web.UI.Page
                             }
                         }
                     }
-                    Response.Write("Saved");
+                    Response.Write("<table class='success'><tr><td>Saved successfully!</td></tr></table>");
                 }
             }
         }

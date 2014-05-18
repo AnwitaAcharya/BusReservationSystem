@@ -37,7 +37,7 @@
     <div style ="width :1100px; border-left :solid 1px #ccc; height:500px; border-right :solid 1px #ccc">
     
     <center>
-    <div style ="width :350px; height :230px" class ="credentialDiv ">
+    <div style ="width :350px; height :245px" class ="credentialDiv ">
     <table style ="width :340px">
     
     <tr>
@@ -75,14 +75,17 @@
     </tr>
     
      <tr>
-    <td style ="height :10px"></td>
+    <td style ="height :15px" align="center">
+        <asp:Label ID="Label2" runat="server" Text="" style="color:Red; font-size:13px;"></asp:Label>
+    </td>
     </tr>
-    
     
      <tr>
     <td style ="height :30px" align ="center" >
     
-    <asp:Button ID="Button1" runat="server" Text="Login" style="width :100px; height :30px; color :#fff; font-weight:bold; font-family :Trebuchet MS "  CssClass ="loginButton "/>
+    <asp:Button ID="Button1" runat="server" Text="Login" 
+            style="width :100px; height :30px; color :#fff; font-weight:bold; font-family :Trebuchet MS "  
+            CssClass ="loginButton " onclick="Button1_Click"/>
     
     </td>
     </tr>

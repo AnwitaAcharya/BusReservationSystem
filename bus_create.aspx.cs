@@ -32,6 +32,9 @@ public partial class bus_create : System.Web.UI.Page
                 Session.Remove("admin_username");
                 Response.Redirect("/login.aspx");
             }
+            string old_bus_id = Request.QueryString["id"];
+            if (old_bus_id == null) { old_bus_id = ""; }
+
             string bus_no = Request.Params["bus_no"];
             string category = Request.Params["category"];
             string weekday = Request.Params["weekday[]"];
@@ -46,36 +49,33 @@ public partial class bus_create : System.Web.UI.Page
             if (sl_nos == null) { sl_nos = ""; }
             if (route_selects == null) { route_selects = ""; }
             if (arrival_times == null) { arrival_times = ""; }
-            //if (fares == null) { fares = ""; }
 
             if (bus_no.ToString().Trim().Length == 0)
             {
                 err = true;
                 err_text.Add("Bus no can't be blank.");
             }
-            if (SpecificSelectionFromTable.return_table("select count(*) from buses where bus_no='" + bus_no + "' and category_id='" + category + "'").Rows[0][0].ToString().Trim() != "0") { err = true; err_text.Add("Bus No already exist."); }
-            /*if (sl_nos.Split(',').Length != fares.Split(',').Length)
-            {
-                err = true;
-                err_text.Add("Please enter amount only in fare text boxes. Dont use coma(,).");
-            }*/
-            /*for (int i = 0; i <= fares.Split(',').Length - 1; i++)
-            {
-                try
-                {
-                    Convert.ToDecimal(fares.Split(',')[i].ToString().Trim());
-                    }
-                catch (Exception ex)
-                {
-                    err = true;
-                    err_text.Add("Please enter amount only in fare text boxes.");
-                    break;
-                }
-            }*/
-                if (err == false)
+            if (SpecificSelectionFromTable.return_table("select count(*) from buses where bus_no='" + bus_no + "' and category_id='" + category + "' and id not in ('" + old_bus_id + "')").Rows[0][0].ToString().Trim() != "0") { err = true; err_text.Add("Bus No already exist."); }
+
+            if (err == false)
                 {
                     string bus_id = IdGenerator.create();
-                    if (Execute_Query.exec_qry("insert into buses (id, bus_no, category_id) values('" + bus_id + "', '" + bus_no + "', '" + category + "')"))
+                    Boolean rtn = false;
+                    if (old_bus_id.Length > 3)
+                    {
+                        rtn = Execute_Query.exec_qry("update buses set bus_no = '" + bus_no + "', category_id = '" + category + "', week_day = '" + weekday + "' where id='" + old_bus_id + "'");
+                        if (rtn)
+                        {
+                            bus_id = old_bus_id;
+                            Execute_Query.exec_qry("update bus_details set is_deleted = '1' where bus_id = '" + old_bus_id + "'");
+                        }
+                    }
+                    else
+                    {
+                        rtn = Execute_Query.exec_qry("insert into buses (id, bus_no, category_id, week_day) values('" + bus_id + "', '" + bus_no + "', '" + category + "', '" + weekday + "')");
+                    }
+    
+                if (rtn)
                     {
                         string[] sl_no_ar = sl_nos.Split(',');
                         string[] route_select_ar = route_selects.Split(',');

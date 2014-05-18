@@ -50,7 +50,7 @@ public partial class route_operation : System.Web.UI.Page
             }
             else if (req_type.ToLower().Trim() == "edit")
             {
-                route = SpecificSelectionFromTable.return_table("select * from routes where id='" + req_id + "'");
+                route = SpecificSelectionFromTable.return_table("select * from routes where id='" + req_id + "' and is_deleted=0");
                 if (route.Rows.Count != 1)
                 {
                     Response.Redirect("/routes.aspx");

@@ -41,17 +41,17 @@ public partial class agent_operation : System.Web.UI.Page
             req_id = Request.QueryString["req_id"];
             if (req_type.ToLower().Trim() == "inactive")
             {
-                Execute_Query.exec_qry("update users set is_deleted=1 where id='" + req_id + "'");
+                Execute_Query.exec_qry("update users set is_deleted=1 where id='" + req_id + "' and user_type='agent'");
                 Response.Redirect("/agents.aspx");
             }
             else if (req_type.ToLower().Trim() == "active")
             {
-                Execute_Query.exec_qry("update users set is_deleted=0 where id='" + req_id + "'");
+                Execute_Query.exec_qry("update users set is_deleted=0 where id='" + req_id + "' and user_type='agent'");
                 Response.Redirect("/agents.aspx");
             }
             else if (req_type.ToLower().Trim() == "edit")
             {
-                agent = SpecificSelectionFromTable.return_table("select * from users where id='" + req_id + "'");
+                agent = SpecificSelectionFromTable.return_table("select * from users where id='" + req_id + "' and is_deleted=0 and user_type='agent'");
                 if (agent.Rows.Count != 1)
                 {
                     Response.Redirect("/agents.aspx");
@@ -65,7 +65,9 @@ public partial class agent_operation : System.Web.UI.Page
                         TextBox3.Text = agent.Rows[0][3].ToString().Trim();
                         //TextBox4.Text=agent.Rows[0][5].ToString().Trim();
                         TextBox5.Text = agent.Rows[0][6].ToString().Trim();
-                        TextBox6.Text = agent.Rows[0][8].ToString().Trim().Split(' ')[0];
+                        string[] dob = agent.Rows[0][8].ToString().Trim().Split('/');
+                        TextBox6.Text = dob[1] + "/" + dob[0] + "/" + dob[2] ;
+                        //TextBox6.Text = agent.Rows[0][8].ToString().Trim();
                     }
                 }
             }

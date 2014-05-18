@@ -16,19 +16,19 @@ public partial class sql_query : System.Web.UI.Page
     public System.Data.DataTable users_data;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["username"] == null)
+        if (Session["admin_username"] == null)
         {
-            //Response.Redirect("/login.aspx");
+            Response.Redirect("/login.aspx");
         }
         else
         {
-            string username = Session["username"].ToString();
+            string username = Session["admin_username"].ToString();
             users_data = CurrentUser.record(username);
             if (users_data.Rows.Count != 1)
             {
                 Session["username"] = null;
                 Session.Remove("username");
-                //Response.Redirect("/login.aspx");
+                Response.Redirect("/login.aspx");
             }
             //pagecode
 

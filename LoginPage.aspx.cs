@@ -18,7 +18,7 @@ public partial class LoginPage : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        //Label2.Text = "";
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
@@ -43,12 +43,14 @@ public partial class LoginPage : System.Web.UI.Page
                 else if (users_data.Rows[0][14].ToString().Trim().ToLower() == "normal")
                 {
                     Session["username"] = username;
-                    Response.Redirect("/");
+                    Response.Redirect("/getbus.aspx");
                 }
 
             }
         }
+        Label2.Text = "Invalid username and/or password.";
     }
+
     protected void LinkButton2_Click(object sender, EventArgs e)
     {
         Response.Redirect("/userregistration.aspx");
