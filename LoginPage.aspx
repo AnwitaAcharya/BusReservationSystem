@@ -96,7 +96,15 @@
     
     </td>
     </tr>
+     <tr>
+    <td style ="height :30px" align ="center" >
     
+        Do not have an account? 
+        <asp:LinkButton ID="LinkButton2" runat="server" Font-Names="Trebuchet MS" 
+            Font-Size="12px" ForeColor="#000099" onclick="LinkButton2_Click">Sign up</asp:LinkButton>
+    
+    </td>
+    </tr>
     
     </table>
     </div>
